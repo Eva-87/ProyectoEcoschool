@@ -1,92 +1,53 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
-    const currentYear = new Date().getFullYear();
+  return (
+    <footer className="bg-green-800/95 backdrop-blur text-green-100 py-10">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 items-center gap-6">
 
-    return (
-        <footer className="w-full bg-green-950 border-t-2 border-green-600 shadow-[0_-10px_40px_rgba(34,197,94,0.25)] relative overflow-hidden">
+        {/* IZQUIERDA — logo */}
+        <div className="flex justify-center md:justify-start">
+          <img
+            src="../public/logo.jpg"
+            alt="Logo EcoSchool"
+            className="h-20 md:h-24 w-auto object-contain"
+          />
+        </div>
 
-            {/* Línea luminosa ecológica */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent animate-pulse"></div>
+        {/* CENTRO — texto y navegación */}
+        <div className="flex flex-col items-center text-center gap-4">
 
-            <div className="max-w-7xl mx-auto px-6 py-5">
+          <h2 className="text-2xl font-bold">EcoSchool 🌱</h2>
 
-                {/* Grid de contenido */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center md:text-left">
+          <p className="text-green-200 text-sm max-w-md">
+            Plataforma escolar para registrar residuos y fomentar la conciencia
+            ambiental en la comunidad educativa.
+          </p>
 
-                    {/* Columna 1: Sobre EcoSchool */}
-                    <div className="space-y-2">
-                        <h3 className="text-green-400 font-extrabold text-xl tracking-wide drop-shadow-[0_0_10px_rgba(34,197,94,0.5)]">
-                            EcoSchool 🌱
-                        </h3>
-                        <p className="text-green-200 text-sm leading-relaxed">
-                            Plataforma educativa para registrar residuos, fomentar el reciclaje
-                            y crear conciencia ambiental en el colegio.
-                        </p>
-                    </div>
+          <nav className="flex gap-6 flex-wrap justify-center">
+            <Link to="/" className="hover:text-green-300 transition">
+              Inicio
+            </Link>
 
-                    {/* Columna 2: Enlaces rápidos */}
-                    <div className="space-y-2">
-                        <h3 className="text-green-400 font-extrabold text-lg tracking-wide drop-shadow-[0_0_10px_rgba(34,197,94,0.5)]">
-                            Enlaces
-                        </h3>
-                        <ul className="space-y-1 text-green-100 text-sm">
-                            <li>
-                                <a href="/" className="hover:text-green-400 transition-colors duration-300 inline-block hover:translate-x-1">
-                                    🏫 Inicio
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/residuos" className="hover:text-green-400 transition-colors duration-300 inline-block hover:translate-x-1">
-                                    ♻️ Registro de residuos
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/dashboard" className="hover:text-green-400 transition-colors duration-300 inline-block hover:translate-x-1">
-                                    📊 Estadísticas
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/contacto" className="hover:text-green-400 transition-colors duration-300 inline-block hover:translate-x-1">
-                                    ✉️ Contacto
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+            <Link to="/residuos" className="hover:text-green-300 transition">
+              Registro
+            </Link>
 
-                    {/* Columna 3: Comunidad */}
-                    <div className="space-y-2">
-                        <h3 className="text-green-400 font-extrabold text-lg tracking-wide drop-shadow-[0_0_10px_rgba(34,197,94,0.5)]">
-                            Comunidad
-                        </h3>
+            <Link to="/dashboard" className="hover:text-green-300 transition">
+              Estadísticas
+            </Link>
+          </nav>
 
-                        <div className="flex justify-center md:justify-start gap-4 text-green-400">
+          <p className="text-xs text-green-300">
+            © {new Date().getFullYear()} EcoSchool. Todos los derechos reservados.
+          </p>
+        </div>
 
-                            {/* Reciclaje */}
-                            <span className="text-2xl hover:scale-110 transition">♻️</span>
-
-                            {/* Árbol */}
-                            <span className="text-2xl hover:scale-110 transition">🌳</span>
-
-                            {/* Hoja */}
-                            <span className="text-2xl hover:scale-110 transition">🍃</span>
-                        </div>
-
-                        <p className="text-green-300 text-xs italic mt-3">
-                            "Pequeñas acciones diarias crean un planeta mejor."
-                            <br />
-                            <span className="text-green-400">— Comunidad EcoSchool</span>
-                        </p>
-                    </div>
-                </div>
-
-                {/* Línea inferior */}
-                <div className="mt-6 pt-4 border-t border-green-800 text-center text-green-300 text-sm">
-                    © {currentYear} EcoSchool. Educación ambiental para un futuro sostenible.
-                </div>
-            </div>
-        </footer>
-    );
+        {/* DERECHA — espacio vacío para equilibrio visual */}
+        <div className="hidden md:block" />
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;
-
-
