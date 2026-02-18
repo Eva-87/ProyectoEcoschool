@@ -8,7 +8,11 @@ export default function DashboardPage() {
   const { residuos, loading } = useResiduos()
   const [chartData, setChartData] = useState([])
 
-  const totalKg = residuos.reduce((a, r) => a + r.cantidadKg, 0).toFixed(1)
+const totalKg = residuos.reduce(
+  (a, r) => a + Number(r.cantidadKg || 0),
+  0
+).toFixed(1)
+
 
   const porCategoria = CATEGORIAS.map(cat => ({
     ...cat,
