@@ -43,7 +43,7 @@ export default function DashboardPage() {
       {/* ===== Fondo: misma imagen que el footer ===== */}
       <div
         className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('../public/vertical-high-angle-closeup-shot-green-leaf-fallen-ground-with-waterdrops-surface.jpg')" }}
+        style={{ backgroundImage: "url('../public/fondo-dashboard.jpg')" }}
       />
       {/* Overlay degradado verde, igual que el footer */}
       <div className="fixed inset-0 -z-10 bg-green-950/50" />
