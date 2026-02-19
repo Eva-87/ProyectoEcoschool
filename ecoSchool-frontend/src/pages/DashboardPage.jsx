@@ -52,7 +52,7 @@ export default function DashboardPage() {
       <div className="max-w-6xl mx-auto px-4 py-10 flex flex-col gap-8">
 
         {/* TÍTULO */}
-        <h1 className="text-3xl font-bold text-white drop-shadow">📊 Dashboard</h1>
+        <h1 className="text-3xl font-bold text-white drop-shadow">📊 Estadísticas y alertas</h1>
 
         {/* PANEL DE ALERTAS INTEGRADO */}
         <div className="max-w-4xl mx-auto w-full p-6 rounded-2xl bg-green-800/90 backdrop-blur-md text-white shadow-lg">
