@@ -40,12 +40,12 @@ export default function DashboardPage() {
   return (
     <div className="relative min-h-screen">
 
-      {/* ===== Fondo: misma imagen que el footer ===== */}
+      
       <div
         className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('../public/fondo-dashboard.jpg')" }}
       />
-      {/* Overlay degradado verde, igual que el footer */}
+  
       <div className="fixed inset-0 -z-10 bg-green-950/50" />
 
       {/* ===== Contenido ===== */}
