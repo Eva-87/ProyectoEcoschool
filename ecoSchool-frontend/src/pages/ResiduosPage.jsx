@@ -35,8 +35,12 @@ function ResiduosPage() {
 
   return (
     <>
-    <Menu/>
-      <div className="flex justify-center p-4  bg-gradient-to-r from-green-200/50 via-green-400/50 to-green-700/50 flex-1">
+      <Menu />
+      <div
+        className="flex justify-center p-4 flex-1 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('../public/fondo-dashboard.jpg')" }}
+      >
+
         <div className="w-full max-w-3xl bg-white/80 backdrop-blur-md p-6 rounded-2xl shadow-lg">
           <h1>Registrar Residuo</h1>
 

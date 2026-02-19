@@ -36,7 +36,7 @@ const Footer = () => {
             {/* ===== Imagen de fondo ===== */}
             <div
                 className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: "url('/fondo-footer2.jpg')" }}
+                style={{ backgroundImage: "url('../fondo-footer2.jpg')" }}
             />
 
             {/* Overlay verde suave para no tapar la imagen */}
