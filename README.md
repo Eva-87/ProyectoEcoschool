@@ -176,12 +176,14 @@ npm run start
 
 Proyecto desarrollado durante un **hackathon** por el equipo **EcoSchool**.
 
-<p>Alberto García</p>
-<p>Melissa Gómez</p>
-<p>María Eva Martín</p>
-<p>Jen Ceballos</p>
-<p>Stiwar Troyano</p>
-<p>María Regueiro</p>
+## 👤 Autores
+
+* Alberto García
+* Melissa Gómez
+* María Eva Martín
+* Jen Ceballos
+* Stiwar Troyano
+* María Regueiro
 
 ---
 
