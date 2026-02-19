@@ -62,6 +62,7 @@ const Footer = () => {
                 </div>
 
                 {/* COLUMNA 2 — LOGO CENTRAL */}
+                {/* COLUMNA 2 — LOGO CENTRAL */}
                 <div className="flex justify-center">
                     <img
                         src="/logo.png"
@@ -105,4 +106,6 @@ const Footer = () => {
         </footer>
     );
 };
+
 export default Footer;
+

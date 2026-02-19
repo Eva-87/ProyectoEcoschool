@@ -1,0 +1,15 @@
+{
+  "name": "ecoscool-root",
+  "version": "1.0.0",
+  "description": "Proyecto EcoSchool - Raíz",
+  "scripts": {
+    "dev": "npm run dev --prefix ecoSchool-frontend",
+    "dev:backend": "npm run dev --prefix ecoSchool-backend",
+    "install:all": "npm install && npm install --prefix ecoSchool-frontend && npm install --prefix ecoSchool-backend",
+    "build": "npm run build --prefix ecoSchool-frontend",
+    "start": "npm run start --prefix ecoSchool-backend"
+  },
+  "keywords": ["ecology", "school", "waste"],
+  "author": "",
+  "license": "ISC"
+}

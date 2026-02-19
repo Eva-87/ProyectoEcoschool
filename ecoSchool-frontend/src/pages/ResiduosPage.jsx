@@ -1,97 +1,70 @@
 import { useState } from 'react'
-import { useResiduos } from '../hooks/useResiduos'
-import { CATEGORIAS, ESTADOS } from '../utils/constants'
-import ResiduoForm from '../components/forms/ResiduoForm'
 import Modal from '../components/layout/Modal'
+import ResiduoForm from '../components/forms/ResiduoForm'
+import { CATEGORIAS, ESTADOS } from '../utils/constants'
+import { useResiduos } from '../hooks/useResiduos'
 
 export default function ResiduosPage() {
-  const { residuos, loading, error, crear, actualizar, eliminar } = useResiduos()
-  const [filtroCategoria, setFiltroCategoria] = useState('')
-  const [filtroEstado,    setFiltroEstado]    = useState('')
-  const [creando,         setCreando]         = useState(false)
-  const [editando,        setEditando]        = useState(null)
-  const [confirmDelete,   setConfirmDelete]   = useState(null)
-
-  const filtrados = residuos.filter(r => {
-    if (filtroCategoria && r.categoria !== filtroCategoria) return false
-    if (filtroEstado    && r.estado    !== filtroEstado)    return false
-    return true
-  })
-
-  const getCatLabel  = v => CATEGORIAS.find(c => c.value === v)?.label || v
-  const getEstadoTw  = v => ESTADOS.find(e => e.value === v)?.tw || 'bg-gray-100 text-gray-700'
-  const getEstadoLbl = v => ESTADOS.find(e => e.value === v)?.label || v
-
-  const selectClass = "px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:border-eco-800 transition-colors bg-white"
+  // aseguramos que residuos siempre sea un array
+  const { residuos = [], loading, error, crear, actualizar, eliminar } = useResiduos()
+  const [creando, setCreando] = useState(false)
+  const [editando, setEditando] = useState(null)
+  const [confirmDelete, setConfirmDelete] = useState(null)
 
   if (loading) return <p className="text-center py-20 text-gray-400">Cargando residuos...</p>
-  if (error)   return <p className="text-center py-20 text-red-500">{error}</p>
+  if (error) return <p className="text-center py-20 text-red-500">{error}</p>
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-
-      {/* HEADER */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-eco-800">♻️ Residuos</h1>
         <button
           onClick={() => setCreando(true)}
-          className="bg-eco-800 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-eco-700 transition-colors"
+          className="bg-eco-800 text-white px-5 py-2.5 rounded-xl hover:bg-eco-700 transition"
         >
           ➕ Nuevo residuo
         </button>
       </div>
 
-      {/* FILTROS */}
-      <div className="flex gap-3 flex-wrap items-center mb-6">
-        <select value={filtroCategoria} onChange={e => setFiltroCategoria(e.target.value)} className={selectClass}>
-          <option value="">Todas las categorías</option>
-          {CATEGORIAS.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
-        </select>
-        <select value={filtroEstado} onChange={e => setFiltroEstado(e.target.value)} className={selectClass}>
-          <option value="">Todos los estados</option>
-          {ESTADOS.map(e => <option key={e.value} value={e.value}>{e.label}</option>)}
-        </select>
-        <span className="text-sm text-gray-400 ml-auto">{filtrados.length} resultado(s)</span>
-      </div>
-
-      {/* TABLA */}
-      {filtrados.length === 0 ? (
+      {/* Mensaje cuando no hay registros */}
+      {residuos.length === 0 ? (
         <div className="text-center py-20 text-gray-400">
-          <p className="text-4xl mb-3">📭</p>
-          <p>No hay residuos registrados.{' '}
-            <button onClick={() => setCreando(true)} className="text-eco-800 font-semibold underline">
-              ¡Registra el primero!
-            </button>
-          </p>
+          <p className="text-6xl mb-3">📭</p>
+          <p>No hay residuos registrados todavía.</p>
+          <button
+            onClick={() => setCreando(true)}
+            className="mt-3 bg-eco-800 text-white px-6 py-2 rounded-lg hover:bg-eco-700 transition"
+          >
+            ➕ Registra el primero
+          </button>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl shadow overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="bg-gray-50 text-gray-500 uppercase text-xs tracking-wider">
+        <div className="overflow-x-auto bg-white rounded-2xl shadow-sm">
+          <table className="w-full text-sm min-w-[600px]">
+            <thead className="bg-gray-50 text-gray-500 text-xs uppercase">
               <tr>
-                {['Descripción','Categoría','Cantidad','Ubicación','Estado','Fecha',''].map(h => (
-                  <th key={h} className="px-4 py-3 text-left font-semibold">{h}</th>
+                {['Descripción','Categoría','Cantidad','Estado','Fecha',''].map(h => (
+                  <th key={h} className="px-4 py-3 text-left">{h}</th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
-              {filtrados.map(r => (
+            <tbody className="divide-y">
+              {residuos.map(r => (
                 <tr key={r.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-4 py-3 text-gray-800">{r.descripcion}</td>
-                  <td className="px-4 py-3">{getCatLabel(r.categoria)}</td>
-                  <td className="px-4 py-3 font-bold text-eco-800">{r.cantidadKg} kg</td>
-                  <td className="px-4 py-3 text-gray-600">{r.ubicacion}</td>
+                  <td className="px-4 py-3">{r.descripcion}</td>
+                  <td className="px-4 py-3">{CATEGORIAS.find(c => c.value === r.categoria)?.label || r.categoria}</td>
+                  <td className="px-4 py-3 font-bold text-eco-800">{r.cantidadKg || 0} kg</td>
                   <td className="px-4 py-3">
-                    <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${getEstadoTw(r.estado)}`}>
-                      {getEstadoLbl(r.estado)}
+                    <span className={`px-2 py-1 rounded-full text-xs ${ESTADOS.find(e => e.value === r.estado)?.tw || 'bg-gray-100 text-gray-700'}`}>
+                      {ESTADOS.find(e => e.value === r.estado)?.label || r.estado}
                     </span>
                   </td>
                   <td className="px-4 py-3 text-gray-400">
-                    {new Date(r.fechaRegistro).toLocaleDateString('es-ES')}
+                    {r.fechaRegistro ? new Date(r.fechaRegistro).toLocaleDateString('es-ES') : '-'}
                   </td>
-                  <td className="px-4 py-3 flex gap-1">
-                    <button onClick={() => setEditando(r)} className="p-1.5 rounded-lg hover:bg-blue-50 transition-colors">✏️</button>
-                    <button onClick={() => setConfirmDelete(r.id)} className="p-1.5 rounded-lg hover:bg-red-50 transition-colors">🗑️</button>
+                  <td className="px-4 py-3 flex gap-2">
+                    <button onClick={() => setEditando(r)}>✏️</button>
+                    <button onClick={() => setConfirmDelete(r.id)}>🗑️</button>
                   </td>
                 </tr>
               ))}
@@ -130,13 +103,13 @@ export default function ResiduosPage() {
             <div className="flex gap-3 justify-center">
               <button
                 onClick={async () => { await eliminar(confirmDelete); setConfirmDelete(null) }}
-                className="bg-red-500 text-white px-5 py-2 rounded-lg font-semibold hover:bg-red-600 transition-colors"
+                className="bg-red-500 text-white px-5 py-2 rounded-lg hover:bg-red-600 transition"
               >
                 Eliminar
               </button>
               <button
                 onClick={() => setConfirmDelete(null)}
-                className="bg-gray-100 text-gray-700 px-5 py-2 rounded-lg font-semibold hover:bg-gray-200 transition-colors"
+                className="bg-gray-100 text-gray-700 px-5 py-2 rounded-lg hover:bg-gray-200 transition"
               >
                 Cancelar
               </button>
