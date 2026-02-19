@@ -7,7 +7,7 @@ import { useAlertas } from "../hooks/useAlertas";
 import { getResumenCategorias } from "../services/api";
 import { CATEGORIAS, ESTADOS } from "../utils/constants";
 import { FaCheck, FaExclamationTriangle } from "react-icons/fa";
-
+import Menu from "../components/layout/Menu"
 export default function DashboardPage() {
   const { residuos, loading } = useResiduos();
   const { alertas, loading: loadingAlertas, resolver } = useAlertas();
@@ -38,6 +38,8 @@ export default function DashboardPage() {
   },[]);
 
   return (
+    <>
+    <Menu/>
     <div className="relative min-h-screen">
 
       
@@ -134,6 +136,7 @@ export default function DashboardPage() {
 
       </div>
     </div>
+    </>
   );
 }
 
