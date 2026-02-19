@@ -28,7 +28,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     getResumenCategorias()
-      .then(({data}) => {
+      .then((data) => {
         setChartData(data.map(item => ({
           name: CATEGORIAS.find(c=>c.value===item.categoria)?.label || item.categoria,
           kg: item.totalKg,

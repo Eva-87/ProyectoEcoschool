@@ -8,7 +8,7 @@ export function useAlertas() {
   const fetchAlertas = useCallback(async () => {
     setLoading(true)
     try {
-      const { data } = await getAlertasActivas()
+      const data = await getAlertasActivas()
       setAlertas(data)
     } catch {
       console.error('Error al cargar alertas')

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Weight, MapPin } from "lucide-react";
+import { createResiduo } from "../services/api";
 import Menu from "../components/layout/Menu"
 
 const tiposResiduos = [
@@ -13,8 +14,10 @@ function ResiduosPage() {
   const [tipoSeleccionado, setTipoSeleccionado] = useState(null);
   const [peso, setPeso] = useState("");
   const [ubicacion, setUbicacion] = useState("Cafetería");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
 
     if (!tipoSeleccionado || Number(peso) <= 0) {
@@ -22,15 +25,29 @@ function ResiduosPage() {
       return;
     }
 
+    setLoading(true);
+    setSuccess(false);
+
     const nuevoResiduo = {
       tipo: tipoSeleccionado,
-      peso,
+      cantidadKg: parseFloat(peso),
       ubicacion,
-      fecha: new Date(),
+      fecha: new Date().toISOString(),
     };
 
-    console.log("Residuo registrado:", nuevoResiduo);
-    alert("Residuo registrado correctamente");
+    try {
+      await createResiduo(nuevoResiduo);
+      setSuccess(true);
+      // Limpiar formulario
+      setTipoSeleccionado(null);
+      setPeso("");
+      setUbicacion("Cafetería");
+      alert("Residuo registrado correctamente");
+    } catch (error) {
+      alert("Error al registrar el residuo: " + error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -103,9 +120,10 @@ function ResiduosPage() {
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="bg-green-500 p-4 rounded-xl w-full lg:w-auto"
+                disabled={loading}
+                className="bg-green-500 p-4 rounded-xl w-full lg:w-auto disabled:opacity-50"
               >
-                Registrar Residuo
+                {loading ? "Registrando..." : "Registrar Residuo"}
               </button>
             </div>
           </form>
